@@ -1,0 +1,41 @@
+<h1>Hierarchy of {{ manager.first_name }} {{ manager.last_name }} - {{ manager.title }}</h1>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 40px;
+}
+</style>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Title</th>
+            <th>Manager</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for employee in hierarchy %}
+        <tr>
+            <td>{{ employee.id }}</td>
+            <td>{{ employee.first_name }}</td>
+            <td>{{ employee.last_name }}</td>
+            <td>{{ employee.title }}</td>
+            <td>
+                {% if employee.manager_id %}
+                    <a href="{% url 'manager_hierarchy' employee.manager_id %}">{{ employee.manager_name }}</a>
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
